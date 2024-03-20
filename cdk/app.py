@@ -209,7 +209,7 @@ class BaseVPCStack(Stack):
         )
         
         # App Mesh Configuration
-        # appmesh()
+        # self.appmesh()
         
         # All Outputs required for other stacks to build
         CfnOutput(self, "NSArn", value=self.namespace_outputs['ARN'], export_name="NSARN")
@@ -293,7 +293,7 @@ class BaseVPCStack(Stack):
         #     image=ecs.ContainerImage.from_registry("amazon/aws-xray-daemon"),
         #     logging=ecs.LogDriver.aws_logs(
         #         stream_prefix='/xray-container',
-        #         log_group=logGroup
+        #         log_group=self.logGroup
         #     ),
         #     essential=True,
         #     container_name="xray",
@@ -345,7 +345,7 @@ class BaseVPCStack(Stack):
         self.mesh_gw_proxy_task_def.execution_role.add_managed_policy(iam.ManagedPolicy.from_aws_managed_policy_name("CloudWatchLogsFullAccess"))
         
         self.mesh_gw_proxy_task_def.task_role.add_managed_policy(iam.ManagedPolicy.from_aws_managed_policy_name("CloudWatchFullAccess"))
-        # mesh_gw_proxy_task_def.task_role.add_managed_policy(iam.ManagedPolicy.from_aws_managed_policy_name("AWSXRayDaemonWriteAccess"))
+        # self.mesh_gw_proxy_task_def.task_role.add_managed_policy(iam.ManagedPolicy.from_aws_managed_policy_name("AWSXRayDaemonWriteAccess"))
         self.mesh_gw_proxy_task_def.task_role.add_managed_policy(iam.ManagedPolicy.from_aws_managed_policy_name("AWSAppMeshEnvoyAccess"))
         
         self.mesh_gw_proxy_task_def.execution_role.add_to_policy(
